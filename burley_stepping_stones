@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stepping Stones Status — River Wharfe</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    .status-ok { color: green; font-weight: bold; font-size: 2rem; }
+    .status-no { color: red; font-weight: bold; font-size: 2rem; }
+  </style>
+</head>
+<body>
+
+  <h1>Stepping Stones Status — River Wharfe @ Ilkley</h1>
+
+  <div id="status">Loading latest river level…</div>
+  <p><a href="index.html">← Back to Home</a></p>
+
+  <script>
+    const threshold = 0.16;
+
+    async function checkLevel() {
+      try {
+        const url = "https://environment.data.gov.uk/flood-monitoring/id/stations/F1902/measures";
+        const res = await fetch(url);
+        const json = await res.json();
+
+        const latest = json.items?.[0]?.latestReading;
+        if (!latest || latest.value == null) {
+          document.getElementById("status").innerText = "No data available";
+          return;
+        }
+
+        const level = parseFloat(latest.value);
+
+        if (level < threshold) {
+          document.getElementById("status").innerHTML = `
+            👍 <span class="status-ok">Crossable!</span><br>
+            River level: ${level.toFixed(2)} m
+          `;
+        } else {
+          document.getElementById("status").innerHTML = `
+            ⚠️ <span class="status-no">Not crossable!</span><br>
+            River level: ${level.toFixed(2)} m
+          `;
+        }
+
+      } catch (e) {
+        console.error(e);
+        document.getElementById("status").innerText = "Error fetching river level";
+      }
+    }
+
+    checkLevel();
+  </script>
+
+</body>
+</html>
