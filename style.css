@@ -1,9 +1,47 @@
+/* Page setup */
 body {
   font-family: Arial, sans-serif;
   max-width: 600px;
   margin: 2rem auto;
   text-align: center;
+  background-color: #f4f6f8; /* light, soft background */
+  color: #333; /* dark gray text for readability */
+  line-height: 1.6;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* subtle depth */
 }
 
-a { color: #007acc; text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* Headings */
+h1, h2, h3 {
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: #007acc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  text-decoration: underline;
+  color: #005fa3; /* slightly darker on hover */
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.5rem;
+}
+
+
+  background-color: #005fa3;
+}
+
+/* Optional: small responsive tweak */
+@media (max-width: 640px) {
+  body {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
